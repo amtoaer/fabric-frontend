@@ -67,7 +67,7 @@ export default Vue.extend({
     async onSubmit(): Promise<void> {
       (this.$refs.ruleForm as any).validate((valid: Boolean) => {
         if (valid) {
-          login()
+          this.login();
         } else {
           this.$msg.error("填写信息不符合要求，请按要求修改");
         }
@@ -92,13 +92,13 @@ export default Vue.extend({
       });
     },
   },
-  mounted:function(){
+  mounted: function () {
     // 如果发现已经登陆则直接跳转至主页
-    if localStorage.getItem('token')&& localStorage.getItem('user'){
+    if (localStorage.getItem("token") && localStorage.getItem("user")) {
       this.$router.replace({
-        path: '/',
-      })
+        path: "/",
+      });
     }
-  }
+  },
 });
 </script>
