@@ -8,6 +8,7 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {path:'/login',name:'Login',component:()=>import('@/views/Login.vue')},
+  {path:'/register',name:'Register',component:()=>import('@/views/Register.vue')}
 ]
 
 const router = new VueRouter({
