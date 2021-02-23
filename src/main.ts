@@ -26,6 +26,14 @@ axios.interceptors.response.use(
     // 对返回结果进行通用化处理
     if (!response.data.success){
       message.error(response.data.message)
+      if (response.data.message==='身份信息失效，请重新登录'){
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        store.commit('logout')
+        router.replace({
+          path:'/login'
+        })
+      }
     }else{
       message.success(response.data.message)
     }
