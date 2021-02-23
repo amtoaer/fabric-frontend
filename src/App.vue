@@ -34,7 +34,7 @@
           margin: '24px 16px',
           padding: '24px',
           background: '#fff',
-          minHeight: '280px',
+          minHeight: '350px',
         }"
       >
         <router-view />
@@ -66,7 +66,25 @@ export default Vue.extend({
       ],
     };
   },
-  watch: {},
+  watch: {
+    "$store.state.isLogin": function (val: Boolean) {
+      if (val) {
+        this.sidebar = [];
+      } else {
+        this.sidebar = [
+          {
+            title: "用户功能",
+            key: "sub1",
+            icon: "user",
+            menus: [
+              { key: "1", path: "/login", icon: "login", text: "登录" },
+              { key: "2", path: "/register", icon: "user-add", text: "注册" },
+            ],
+          },
+        ];
+      }
+    },
+  },
   mounted: function () {
     if (
       localStorage.getItem("token") === null ||
