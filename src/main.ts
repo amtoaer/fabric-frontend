@@ -34,11 +34,12 @@ axios.interceptors.response.use(
           path:'/login'
         })
       }
-    }else{
-      message.success(response.data.message)
     }
     // 返回请求执行结果，便于后续进行特定处理
     return response
+  },
+  err=>{
+    message.error(`出现错误，错误信息为：${err}`)
   }
 )
 
