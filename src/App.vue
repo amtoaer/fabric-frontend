@@ -69,7 +69,26 @@ export default Vue.extend({
   watch: {
     "$store.state.isLogin": function (val: Boolean) {
       if (val) {
-        this.sidebar = [];
+        this.sidebar = [
+          {
+            title: "病历操作",
+            key: "sub1",
+            icon: "snippets",
+            menus: [
+              { key: "1", path: "/", icon: "search", text: "查询" },
+              { key: "2", path: "/add", icon: "file-add", text: "添加" },
+            ],
+          },
+          {
+            title: "用户中心",
+            key: "sub2",
+            icon: "user",
+            menus: [
+              { key: "1", path: "/me", icon: "meh", text: "我的" },
+              { key: "2", path: "/logout", icon: "logout", text: "注销" },
+            ],
+          },
+        ];
       } else {
         this.sidebar = [
           {
@@ -86,20 +105,21 @@ export default Vue.extend({
     },
   },
   mounted: function () {
-    if (
-      localStorage.getItem("token") === null ||
-      localStorage.getItem("user") === null
-    ) {
-      this.$msg.error("您还未登录，正在跳转至登录界面...");
-      this.$router.replace({
-        path: "/login",
-      });
-    } else {
-      this.$store.commit(
-        "setUser",
-        JSON.parse(localStorage.getItem("user") as string)
-      );
-    }
+    // easy for debug
+    // if (
+    //   localStorage.getItem("token") === null ||
+    //   localStorage.getItem("user") === null
+    // ) {
+    //   this.$msg.error("您还未登录，正在跳转至登录界面...");
+    //   this.$router.replace({
+    //     path: "/login",
+    //   });
+    // } else {
+    //   this.$store.commit(
+    //     "setUser",
+    //     JSON.parse(localStorage.getItem("user") as string)
+    //   );
+    // }
   },
 });
 </script>
