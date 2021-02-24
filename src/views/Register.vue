@@ -19,9 +19,9 @@
       </a-radio-group>
     </a-form-model-item>
     <a-form-model-item label="密码" prop="Password">
-      <a-input v-model="form.Password" />
+      <a-input-password v-model="form.Password" />
     </a-form-model-item>
-    <a-form-model-item :wrapper-col="{ span: 14, offset: 5 }">
+    <a-form-model-item :wrapper-col="{ span: 8, offset: 12 }">
       <a-button type="primary" @click="onSubmit"> 注册 </a-button>
       <a-button style="margin-left: 10px" @click="resetForm"> 清空 </a-button>
     </a-form-model-item>
@@ -38,7 +38,7 @@ export default Vue.extend({
   data() {
     return {
       labelCol: { span: 8 },
-      wrapperCol: { span: 16 },
+      wrapperCol: { span: 12 },
       form: {
         IDNumber: "",
         Password: "",
