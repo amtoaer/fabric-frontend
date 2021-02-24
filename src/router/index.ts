@@ -7,8 +7,10 @@ import 'nprogress/nprogress.css'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
+  {path:'/',name:'Index',component:()=>import('@/views/Index.vue')},
   {path:'/login',name:'Login',component:()=>import('@/views/Login.vue')},
-  {path:'/register',name:'Register',component:()=>import('@/views/Register.vue')}
+  {path:'/register',name:'Register',component:()=>import('@/views/Register.vue')},
+  {path:'/search/:type/:id',name:'Search',component:()=>import('@/views/Index.vue')}
 ]
 
 const router = new VueRouter({
