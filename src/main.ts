@@ -3,9 +3,32 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios, { AxiosStatic } from 'axios'
-import {message} from 'ant-design-vue'
 import { Message } from 'ant-design-vue/types/message'
+import {
+  FormModel,
+  Input,
+  Radio,
+  Table,
+  Button,
+  Timeline,
+  Layout,
+  Menu,
+  Icon,
+  Modal,
+  message,
+} from "ant-design-vue";
+import { ModalConfirm, ModalOptions } from 'ant-design-vue/types/modal'
 
+Vue.use(Layout)
+  .use(Menu)
+  .use(Icon)
+  .use(Input)
+  .use(Radio)
+  .use(Button)
+  .use(FormModel)
+  .use(Table)
+  .use(Timeline)
+  .use(Modal);
 
 // request拦截并加上token 
 axios.interceptors.request.use(
@@ -45,11 +68,13 @@ axios.interceptors.response.use(
 
 Vue.prototype.$axios = axios
 Vue.prototype.$msg = message
+Vue.prototype.$confirm = Modal.confirm
 
 declare module 'vue/types/vue'{
   interface Vue{
     $axios: AxiosStatic;
     $msg: Message;
+    $confirm: (modalOptios:ModalOptions)=>ModalConfirm
   }
 }
 
