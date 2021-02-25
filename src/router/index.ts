@@ -11,7 +11,11 @@ const routes: Array<RouteConfig> = [
   {path:'/login',name:'Login',component:()=>import('@/views/Login.vue')},
   {path:'/register',name:'Register',component:()=>import('@/views/Register.vue')},
   {path:'/search/:type/:id',name:'Search',component:()=>import('@/views/Index.vue')},
-  {path:'/me',name:'Info',component:()=>import ('@/views/Info.vue')}
+  {path:'/me',name:'Info',component:()=>import ('@/views/Info.vue')},
+  {path:'/add',name:'Add',component:()=>import('@/views/Add.vue')},
+  {path:'/detail/:patientID/:doctorID',name:'Detail',component:()=>import('@/views/Detail.vue')},
+  {path:'/update/:patientID/:doctorID',name:'Update',component:()=>import('@/views/Add.vue')},
+  {path:'/logout',name:'Logout',component:()=>import('@/views/Logout.vue')}
 ]
 
 const router = new VueRouter({
@@ -20,6 +24,7 @@ const router = new VueRouter({
   routes
 })
 
+// 路由切换时的加载进度条配置
 router.beforeEach((to,from,next)=>{
   NProgress.start()
   next()
