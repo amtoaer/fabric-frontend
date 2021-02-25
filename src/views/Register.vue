@@ -57,7 +57,6 @@ export default Vue.extend({
         Type: [{ required: true, message: "请选择身份", trigger: "change" }],
         Password: [
           { required: true, message: "请输入密码", trigger: "blur" },
-          //TODO: 在后端对密码长度做同样的限制
           { min: 6, max: 16, message: "密码长度在6-16之间", trigger: "blur" },
         ],
       },
@@ -82,8 +81,8 @@ export default Vue.extend({
         if (resp.data.success) {
           // 设置登陆信息
           localStorage.setItem("token", resp.data.token);
-          localStorage.setItem("user", JSON.stringify(resp.data.user));
-          this.$store.commit("setUser", resp.data.user);
+          localStorage.setItem("user", JSON.stringify(resp.data.data));
+          this.$store.commit("setUser", resp.data.data);
           // 跳转到主页
           this.$router.replace({
             path: "/",

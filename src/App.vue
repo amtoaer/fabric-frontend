@@ -84,8 +84,8 @@ export default Vue.extend({
             key: "sub2",
             icon: "user",
             menus: [
-              { key: "1", path: "/me", icon: "meh", text: "我的" },
-              { key: "2", path: "/logout", icon: "logout", text: "注销" },
+              { key: "3", path: "/me", icon: "meh", text: "我的" },
+              { key: "4", path: "/logout", icon: "logout", text: "注销" },
             ],
           },
         ];
@@ -106,20 +106,20 @@ export default Vue.extend({
   },
   mounted: function () {
     // easy for debug
-    // if (
-    //   localStorage.getItem("token") === null ||
-    //   localStorage.getItem("user") === null
-    // ) {
-    //   this.$msg.error("您还未登录，正在跳转至登录界面...");
-    //   this.$router.replace({
-    //     path: "/login",
-    //   });
-    // } else {
-    //   this.$store.commit(
-    //     "setUser",
-    //     JSON.parse(localStorage.getItem("user") as string)
-    //   );
-    // }
+    if (
+      localStorage.getItem("token") === null ||
+      localStorage.getItem("user") === null
+    ) {
+      this.$msg.error("您还未登录，正在跳转至登录界面...");
+      this.$router.replace({
+        path: "/login",
+      });
+    } else {
+      this.$store.commit(
+        "setUser",
+        JSON.parse(localStorage.getItem("user") as string)
+      );
+    }
   },
 });
 </script>

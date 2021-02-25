@@ -63,8 +63,8 @@ export default Vue.extend({
         if (resp.data.success) {
           // 设置登陆信息
           localStorage.setItem("token", resp.data.token);
-          localStorage.setItem("user", JSON.stringify(resp.data.user));
-          this.$store.commit("setUser", resp.data.user);
+          localStorage.setItem("user", JSON.stringify(resp.data.data));
+          this.$store.commit("setUser", resp.data.data);
           // 跳转到主页
           this.$router.replace({
             path: "/",
