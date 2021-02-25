@@ -21,9 +21,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { FormModel, Input, Radio, Button } from "ant-design-vue";
-
-Vue.use(Input).use(Radio).use(Button).use(FormModel);
 
 export default Vue.extend({
   data() {
@@ -38,7 +35,6 @@ export default Vue.extend({
         ID: [{ required: true, message: "请输入编号", trigger: "blur" }],
         Password: [
           { required: true, message: "请输入密码", trigger: "blur" },
-          //TODO: 在后端对密码长度做同样的限制
           { min: 6, max: 16, message: "密码长度在6-16之间", trigger: "blur" },
         ],
       },

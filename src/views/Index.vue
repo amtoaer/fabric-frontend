@@ -20,7 +20,12 @@
     <a-table :columns="columns" :data-source="data">
       <a slot="name" slot-scope="text">{{ text }}</a>
       <span slot="action" slot-scope="text, record">
-        <router-link to=`/info/${record.PatientID}${record.DoctorID}`>查看</router-link>
+        <router-link :to="'/detail/' + record.PatientID + '/' + record.DoctorID"
+          >查看</router-link
+        >
+        <router-link :to="'/update/' + record.PatientID + '/' + record.DoctorID"
+          >修改</router-link
+        >
       </span>
     </a-table>
   </div>
@@ -28,19 +33,40 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { FormModel, Input, Radio, Table } from "ant-design-vue";
-Vue.use(FormModel).use(Input).use(Radio).use(Table);
+
 export default Vue.extend({
   data: () => ({
     searchMethod: true,
     IDNumber: "",
     data: [],
+    columns: [
+      {
+        title: "患者姓名",
+        dataIndex: "PatientName",
+        key: "PatientName",
+      },
+      {
+        title: "患者ID",
+        dataIndex: "PatientID",
+        key: "PatientID",
+      },
+      {
+        title: "医生姓名",
+        dataIndex: "DoctorName",
+        key: "DoctorName",
+      },
+      {
+        title: "医生ID",
+        key: "DoctorID",
+        dataIndex: "DoctorID",
+      },
+      {
+        title: "操作",
+        key: "Action",
+        scopedSlots: { customRender: "action" },
+      },
+    ],
   }),
-  computed: {
-    columns: function () {
-      return this.$store.state.columns;
-    },
-  },
   methods: {
     async onSearch(): Promise<void> {
       let re = /[\d]{18}/;
@@ -53,13 +79,13 @@ export default Vue.extend({
         type = "doctor";
         postAPI = "/api/search/byDoctorID";
         form = {
-          doctorIDNumber: this.IDNumber,
+          DoctorIDNumber: this.IDNumber,
         };
       } else {
         type = "patient";
         postAPI = "/api/search/byPatientID";
         form = {
-          patientIDNumber: this.IDNumber,
+          PatientIDNumber: this.IDNumber,
         };
       }
       this.$router.push({

@@ -30,9 +30,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { FormModel, Input, Radio, Button } from "ant-design-vue";
-
-Vue.use(Input).use(Radio).use(Button).use(FormModel);
 
 export default Vue.extend({
   data() {
@@ -48,7 +45,7 @@ export default Vue.extend({
       rules: {
         Name: [
           { required: true, message: "请输入姓名", trigger: "blur" },
-          { min: 3, max: 10, message: "长度在3-10之间", trigger: "blur" },
+          { min: 2, max: 10, message: "长度在2-10之间", trigger: "blur" },
         ],
         IDNumber: [
           { required: true, message: "请输入身份证号", trigger: "blur" },

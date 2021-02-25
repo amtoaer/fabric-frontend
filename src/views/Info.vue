@@ -1,10 +1,5 @@
 <template>
-  <a-form-model
-    ref="ruleForm"
-    :model="user"
-    :label-col="labelCol"
-    :wrapper-col="wrapperCol"
-  >
+  <a-form-model :model="user" :label-col="labelCol" :wrapper-col="wrapperCol">
     <a-form-model-item ref="Name" label="姓名">
       <a-input v-model="user.Name" disabled />
     </a-form-model-item>
@@ -25,9 +20,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { FormModel, Input } from "ant-design-vue";
-
-Vue.use(FormModel).use(Input);
 
 export default Vue.extend({
   computed: {

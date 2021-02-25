@@ -45,9 +45,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Layout, Menu, Icon } from "ant-design-vue";
-
-Vue.use(Layout).use(Menu).use(Icon);
 
 export default Vue.extend({
   data: function () {
