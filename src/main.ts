@@ -16,6 +16,7 @@ import {
   Icon,
   Modal,
   message,
+  Divider
 } from "ant-design-vue";
 import { ModalConfirm, ModalOptions } from 'ant-design-vue/types/modal'
 
@@ -28,7 +29,8 @@ Vue.use(Layout)
   .use(FormModel)
   .use(Table)
   .use(Timeline)
-  .use(Modal);
+  .use(Modal)
+  .use(Divider);
 
 // request拦截并加上token 
 axios.interceptors.request.use(
@@ -50,8 +52,6 @@ axios.interceptors.response.use(
     if (!response.data.success){
       message.error(response.data.message)
       if (response.data.message==='身份信息失效，请重新登录'){
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
         store.commit('logout')
         router.replace({
           path:'/login'

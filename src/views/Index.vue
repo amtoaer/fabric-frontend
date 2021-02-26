@@ -23,6 +23,7 @@
         <router-link :to="'/detail/' + record.PatientID + '/' + record.DoctorID"
           >查看</router-link
         >
+        <a-divider type="vertical" />
         <router-link :to="'/update/' + record.PatientID + '/' + record.DoctorID"
           >修改</router-link
         >
@@ -91,7 +92,9 @@ export default Vue.extend({
       this.$router.push({
         path: `/search/${type}/${this.IDNumber}`,
       });
-      this.data = (await this.$axios.post(postAPI, form)).data;
+      this.data = JSON.parse(
+        (await this.$axios.post(postAPI, form)).data.result
+      );
     },
   },
   mounted: async function () {
@@ -123,7 +126,9 @@ export default Vue.extend({
       // 判断身份证号是否合法
       let re = /[\d]{18}/;
       if (re.test(this.IDNumber)) {
-        this.data = (await this.$axios.post(postAPI as string, form)).data;
+        this.data = JSON.parse(
+          (await this.$axios.post(postAPI, form)).data.result
+        );
       } else {
         // 判断失败跳转到主页
         this.$router.replace({

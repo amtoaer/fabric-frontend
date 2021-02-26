@@ -102,7 +102,6 @@ export default Vue.extend({
     },
   },
   mounted: function () {
-    // easy for debug
     if (
       localStorage.getItem("token") === null ||
       localStorage.getItem("user") === null

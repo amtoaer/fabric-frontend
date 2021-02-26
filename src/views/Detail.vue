@@ -104,13 +104,13 @@ export default Vue.extend({
     },
   },
   mounted: function () {
-    if (this.user.Type && this.user.Name === this.$route.params.doctorID) {
+    if (this.user.Type && this.user.IDNumber === this.$route.params.doctorID) {
       this.identity = "病人";
       this.IDNumber = this.$route.params.patientID;
       this.model = true;
     } else if (
       !this.user.Type &&
-      this.user.Name === this.$route.params.patientID
+      this.user.IDNumber === this.$route.params.patientID
     ) {
       this.identity = "医生";
       this.IDNumber = this.$route.params.doctorID;
