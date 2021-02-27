@@ -31,17 +31,18 @@ export default Vue.extend({
     if (!this.user.Type) {
       this.$msg.error("只有医生才能添加或修改病历");
       if (window.history.length <= 1) {
-        this.$router.push({ path: "/" });
+        this.$router.replace({ path: "/" });
       } else {
         this.$router.back();
       }
+      return;
     }
     // 如果带有动态路由参数
     if (Object.keys(this.$route.params).length) {
       if (this.user.IDNumber !== this.$route.params.doctorID) {
         this.$msg.error("您无权修改该病历");
         if (window.history.length <= 1) {
-          this.$router.push({ path: "/" });
+          this.$router.replace({ path: "/" });
         } else {
           this.$router.back();
         }
@@ -99,7 +100,7 @@ export default Vue.extend({
           this.$msg.success(
             `请求处理成功，交易编号为${resp.data.transactionID}`
           );
-          this.$router.replace({
+          this.$router.push({
             path: "/",
           });
         }

@@ -88,13 +88,5 @@ export default Vue.extend({
       });
     },
   },
-  mounted: function () {
-    // 如果发现已经登陆则直接跳转至主页
-    if (localStorage.getItem("token") && localStorage.getItem("user")) {
-      this.$router.replace({
-        path: "/",
-      });
-    }
-  },
 });
 </script>

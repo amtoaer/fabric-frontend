@@ -110,32 +110,16 @@ export default Vue.extend({
         form = {
           patientIDNumber: this.IDNumber,
         };
-      } else if (this.$route.params.type === "doctor") {
+      } else {
         this.searchMethod = true;
         postAPI = "/api/search/byDoctorID";
         form = {
           doctorIDNumber: this.IDNumber,
         };
-      } else {
-        // 判断失败跳转到主页
-        this.$router.replace({
-          path: "/",
-        });
-        return;
       }
-      // 判断身份证号是否合法
-      let re = /[\d]{18}/;
-      if (re.test(this.IDNumber)) {
-        this.data = JSON.parse(
-          (await this.$axios.post(postAPI, form)).data.result
-        );
-      } else {
-        // 判断失败跳转到主页
-        this.$router.replace({
-          path: "/",
-        });
-        return;
-      }
+      this.data = JSON.parse(
+        (await this.$axios.post(postAPI, form)).data.result
+      );
     }
   },
 });

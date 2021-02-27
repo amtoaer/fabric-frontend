@@ -6,8 +6,8 @@
     :label-col="labelCol"
     :wrapper-col="wrapperCol"
   >
-    <a-form-model-item ref="ID" label="编号" prop="ID">
-      <a-input v-model="form.ID" />
+    <a-form-model-item ref="IDNumber" label="身份证号" prop="IDNumber">
+      <a-input v-model="form.IDNumber" />
     </a-form-model-item>
     <a-form-model-item label="密码" prop="Password">
       <a-input-password v-model="form.Password" />
@@ -28,11 +28,14 @@ export default Vue.extend({
       labelCol: { span: 8 },
       wrapperCol: { span: 12 },
       form: {
-        ID: "",
+        IDNumber: "",
         Password: "",
       },
       rules: {
-        ID: [{ required: true, message: "请输入编号", trigger: "blur" }],
+        IDNumber: [
+          { required: true, message: "请输入身份证号", trigger: "blur" },
+          { min: 18, max: 18, message: "身份证长度为18位", trigger: "blur" },
+        ],
         Password: [
           { required: true, message: "请输入密码", trigger: "blur" },
           { min: 6, max: 16, message: "密码长度在6-16之间", trigger: "blur" },
@@ -68,14 +71,6 @@ export default Vue.extend({
         }
       });
     },
-  },
-  mounted: function () {
-    // 如果发现已经登陆则直接跳转至主页
-    if (localStorage.getItem("token") && localStorage.getItem("user")) {
-      this.$router.replace({
-        path: "/",
-      });
-    }
   },
 });
 </script>

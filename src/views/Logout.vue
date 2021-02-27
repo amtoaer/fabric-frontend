@@ -18,7 +18,7 @@ export default Vue.extend({
       },
       onCancel() {
         if (window.history.length <= 1) {
-          router.push({ path: "/" });
+          router.replace({ path: "/" });
         } else {
           router.back();
         }

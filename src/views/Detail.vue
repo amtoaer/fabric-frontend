@@ -1,38 +1,44 @@
 <template>
   <div>
-    <a-modal v-model="model" title="提示" @ok="handleOk">
+    <a-modal v-model="model" title="提示" @ok="handleOk" @cancel="handleCancel">
       <p>请输入对应{{ identity }}的私钥：</p>
       <a-textarea v-model="privateKey" autoSize />
     </a-modal>
-    <a-form-model
-      :model="record"
-      :label-col="labelCol"
-      :wrapper-col="wrapperCol"
-    >
-      <a-form-model-item label="医生姓名">
-        <a-input :value="record.DoctorName" disabled />
-      </a-form-model-item>
-      <a-form-model-item label="医生身份证号">
-        <a-input :value="record.DoctorID" disabled />
-      </a-form-model-item>
-      <a-form-model-item label="病人姓名">
-        <a-input :value="record.PatientName" disabled />
-      </a-form-model-item>
-      <a-form-model-item label="病人身份证号">
-        <a-textarea :value="record.PatientID" autoSize disabled />
-      </a-form-model-item>
-      <a-form-model-item label="病历内容">
-        <a-textarea :value="record.Content" autoSize disabled />
-      </a-form-model-item>
-    </a-form-model>
-    <a-timeline>
-      <a-timeline-item
-        ><a v-on:click="getCurrent()">当前病历</a></a-timeline-item
-      >
-      <a-timeline-item v-for="(item, index) in history" :key="item.TxID">
-        <a v-on:click="getHistoryByIndex(index)">{{ item.TxID }}</a>
-      </a-timeline-item>
-    </a-timeline>
+    <a-row>
+      <a-col span="18">
+        <a-descriptions
+          bordered
+          title="病历信息"
+          size="default"
+          :column="2"
+          style="white-space: pre-wrap"
+        >
+          <a-descriptions-item label="病人姓名">
+            {{ record.PatientName }}
+          </a-descriptions-item>
+          <a-descriptions-item label="病人身份证号">
+            {{ record.PatientID }}
+          </a-descriptions-item>
+          <a-descriptions-item label="医生姓名">
+            {{ record.DoctorName }}
+          </a-descriptions-item>
+          <a-descriptions-item label="医生身份证号">
+            {{ record.DoctorID }}
+          </a-descriptions-item>
+          <a-descriptions-item label="病历内容">{{
+            record.Content
+          }}</a-descriptions-item>
+        </a-descriptions>
+      </a-col>
+      <a-col span="6">
+        <a-timeline>
+          <p>历史信息</p>
+          <a-timeline-item v-for="(item, index) in history" :key="item.TxID">
+            <a v-on:click="getHistoryByIndex(index)">{{ item.TxID }}</a>
+          </a-timeline-item>
+        </a-timeline>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
@@ -58,7 +64,6 @@ export default Vue.extend({
     IDNumber: "",
     privateKey: "",
     identity: "",
-    current: {} as Record,
     history: [] as HistoryItem[],
     record: {
       PatientName: "",
@@ -76,11 +81,15 @@ export default Vue.extend({
     },
   },
   methods: {
-    getCurrent() {
-      this.record = this.current;
-    },
     getHistoryByIndex(index: number) {
       this.record = this.history[index].History;
+    },
+    handleCancel() {
+      if (window.history.length <= 1) {
+        this.$router.replace({ path: "/" });
+      } else {
+        this.$router.back();
+      }
     },
     handleOk(e: Event) {
       e.preventDefault();
@@ -92,11 +101,9 @@ export default Vue.extend({
         .then((resp) => {
           if (resp.data.success) {
             // current内存储当前病历，history里存储历史信息
-            this.current = resp.data.result;
-            this.history = (this.current as any).History;
-            (this.current as any).History = [];
+            this.history = resp.data.result.Historys;
             // 默认展示当前病历
-            this.record = this.current as any;
+            this.record = this.history[0].History;
             // 关闭对话框
             this.model = false;
           }
@@ -118,7 +125,7 @@ export default Vue.extend({
     } else {
       this.$msg.error("您无权查看该病历");
       if (window.history.length <= 1) {
-        this.$router.push({ path: "/" });
+        this.$router.replace({ path: "/" });
       } else {
         this.$router.back();
       }
